@@ -49,7 +49,7 @@ To run these scripts you will need to install:
 * The Google Cloud Storage `gsutil` CLI ([Installation](https://cloud.google.com/storage/docs/gsutil_install))
 * A virtualenv with the following packages installed:
 
-    pip install cloudflare tldextract
+      pip install cloudflare tldextract
 
 ### Setup
 
