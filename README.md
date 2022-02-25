@@ -16,8 +16,8 @@ Old, unmaintained sites that are part of the OKF infrastucture should be migrate
 
 To perform the tasks described below you might need access to the following services:
 
-* [Cloudflare](https://dash.cloudflare.com): For managing DNS records. Log in as *sysadmin@okfn.org*, the password is on LastPass. You will need to access the sysadmin@okfn.org Gmail inbox to get the 2FA token. To access this inbox you will need the password stored on LastPass and a 2FA code from the Google Authenticator app.
-* [Google Cloud Storage](https://console.cloud.google.com/storage/browser?authuser=1&project=oki-archive&prefix=): For managing the Storage buckets. While you can use your own *@okfn.org* account to browse the UI, to perform the actual tasks from the scripts you will need to login locally as *sysadmin@okfn.org* using `gcloud auth login`.
+* [Cloudflare](https://dash.cloudflare.com): For managing DNS records. Log in as *sysadmin at okfn.org*, the password is on LastPass. You will need to access the sysadmin at okfn.org Gmail inbox to get the 2FA token. To access this inbox you will need the password stored on LastPass and a 2FA code from the Google Authenticator app.
+* [Google Cloud Storage](https://console.cloud.google.com/storage/browser?authuser=1&project=oki-archive&prefix=): For managing the Storage buckets. While you can use your own *@okfn.org* account to browse the UI, to perform the actual tasks from the scripts you will need to login locally as *sysadmin at okfn.org* using `gcloud auth login`.
 * Wordpress. For managing (shutting down) WP sites. Use your *@okfn.org* account to login to one of the network site admin pages, eg:
     * https://core.okfn.org/wp-admin/network/sites.php
     * https://network.okfn.org/wp-admin/network/sites.php
@@ -45,7 +45,7 @@ All these steps except the last one are automated with the scripts included in t
 
 To run these scripts you will need to install:
 
-* The `gcloud` CLI ([Installation](https://cloud.google.com/sdk/docs/install)
+* The `gcloud` CLI ([Installation](https://cloud.google.com/sdk/docs/install))
 * The Google Cloud Storage `gsutil` CLI ([Installation](https://cloud.google.com/storage/docs/gsutil_install))
 * A virtualenv with the following packages installed:
 
@@ -55,12 +55,12 @@ To run these scripts you will need to install:
 
 * You need to login to `gcloud` using the *sysadmin@okfn.org* account:
 
-    gcloud auth login
+       gcloud auth login
 
 * You need to define your Cloudflare API token. The token is stored in LastPass. Create a new file in `~/.cloudflare.cfg` with the following contents:
 
-    [CloudFlare]
-    token=xxxx_token_in_last_pass
+       [CloudFlare]
+       token=xxxx_token_in_last_pass
 
 ### Running 
 
@@ -71,8 +71,8 @@ The main script you probably want to run is `publish_bucket.sh`. Assuming there 
 This is turn will call the following scripts, which you can call individually or mix with others as needed:
 
 | Script name | Description|
-| +++ | +++ |
-| `./check_gcloud_login.sh` | Checks that you are logged in with *sysadmin@okfn.org* |
+|---|---|
+| `./check_gcloud_login.sh` | Checks that you are logged in with *sysadmin at okfn.org* |
 | `./oki-cloud_to_oki-archive.sh <BUCKET_NAME>` | Moves a bucket from the `oki-cloud` project to `oki-archive` (if needed) |
 | `./process_index.html <BUCKET_NAME>` | Downloads the index.html file, adds the deprecation banner, removes the GA script and re-uploads it |
 | `python update_cname_records.py <BUCKET_NAME>` | Creates or updates an existing CNAME record to point to GCS |
