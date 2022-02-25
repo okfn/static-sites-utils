@@ -53,7 +53,7 @@ To run these scripts you will need to install:
 
 ### Setup
 
-* You need to login to `gcloud` using the *sysadmin@okfn.org* account:
+* You need to login to `gcloud` using the *sysadmin at okfn.org* account:
 
        gcloud auth login
 
