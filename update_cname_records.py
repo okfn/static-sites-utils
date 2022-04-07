@@ -8,7 +8,7 @@ except ImportError:
     print(
         """This script requires the following packages:
 
-    pip install cloudflare tldextract
+    pip install -r requirements.txt
     """
     )
     sys.exit(1)

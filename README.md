@@ -47,9 +47,7 @@ To run these scripts you will need to install:
 
 * The `gcloud` CLI ([Installation](https://cloud.google.com/sdk/docs/install))
 * The Google Cloud Storage `gsutil` CLI ([Installation](https://cloud.google.com/storage/docs/gsutil_install))
-* A virtualenv with the following packages installed:
-
-      pip install cloudflare tldextract
+* A virtualenv with the `requirements.txt` packages installed:
 
 ### Setup
 
