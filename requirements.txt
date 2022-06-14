@@ -1,0 +1,2 @@
+cloudflare==2.9.9
+tldextract==3.2.0
