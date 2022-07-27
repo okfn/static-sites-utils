@@ -54,6 +54,9 @@ fi
 echo "Updating http to https in all site files"
 find ./$DOMAIN_NAME -type f -print0 | xargs -0 sed -i 's/http:\/\//https:\/\//g'
 
+echo "Removing all 'login' links"
+find ./$DOMAIN_NAME -type f -print0 | xargs -0 sed -ri "s/<a\ (.*)>Login(.*)<\/a>//g"
+
 echo "Upload files"
 gsutil -m cp -r $DOMAIN_NAME/** gs://$BUCKET_NAME
 
