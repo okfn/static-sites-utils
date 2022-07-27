@@ -74,7 +74,7 @@ def update_cname_record(domain, new_record_content, proxied):
 if __name__ == "__main__":
 
     domains_input = sys.argv[1]
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
         # usually k8s-production.openknowledge.io (not proxied)
         new_record_content=sys.argv[2]
         # false for k8s-production.openknowledge.io, True for c.storage.googleapis.com (default)
