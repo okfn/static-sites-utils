@@ -82,4 +82,4 @@ echo "Delete local folder"
 mv $DOMAIN_NAME "${DOMAIN_NAME}-DONE"
 
 echo "Set up CNAME record"
-python update_cname_records.py $BUCKET_NAME false
+python update_cname_records.py $BUCKET_NAME c.storage.googleapis.com false
