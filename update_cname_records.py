@@ -77,13 +77,14 @@ if __name__ == "__main__":
     if len(sys.argv) > 2:
         # usually k8s-production.openknowledge.io (not proxied)
         new_record_content=sys.argv[2]
-        # false for k8s-production.openknowledge.io, True for c.storage.googleapis.com (default)
-        proxied=bool(int(sys.argv[3]))
     else:
         # Default is moving to oki-archive
         new_record_content=RECORD_CONTENT
-        proxied = True
 
+    proxied = True  # default
+    if len(sys.argv) > 3:
+        proxied=bool(int(sys.argv[3]))
+    
     if os.path.exists(domains_input):
         with open(domains_input, "r") as f:
             domains = [l.strip() for l in f.readlines()]
