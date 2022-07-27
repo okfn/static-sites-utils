@@ -23,3 +23,6 @@ sed -ri "s/analyticsTrackingID: (.*)//g" index.html
 
 echo "Re-upload file"
 gsutil cp index.html gs://$BUCKET_NAME/index.html
+
+echo "Remove index.html file"
+rm index.html
