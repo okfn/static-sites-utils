@@ -12,7 +12,7 @@ PROTOCOL=$2
 ALREADY_DOWNLOADED=${3:-false}
 
 if [ -z $DOMAIN_NAME ]; then
-    echo "Usage: ./download-static-site.sh DOMAIN_NAME [PROTOCOL (http | https)]"
+    echo "Usage: ./download-static-site.sh DOMAIN_NAME [PROTOCOL (http | https)] [true (if the site was already downloaded in a previous run)]"
     exit 1
 fi
 
@@ -24,18 +24,26 @@ if [ $ALREADY_DOWNLOADED = "false" ]; then
      echo "Downloading $DOMAIN_NAME ..."
      URL="$PROTOCOL://$DOMAIN_NAME"
 
+     # --max-redirect=0 could help
+
      wget \
-          -t 2 \
+          --tries=2 \
+          --timeout=15 \
+          --exclude-domains id.census.okfn.org \
           --recursive \
           --no-clobber \
           --page-requisites \
           --html-extension \
           --convert-links \
           --restrict-file-names=windows \
-          --domains $DOMAIN_NAME \
-          --no-parent $URL
+          --domains "$DOMAIN_NAME" \
+          --no-parent "$URL" || echo "Error downloading with wget"
+
+    echo "Download $URL finished"
+
 fi
 
+echo "Start processing site"
 BUCKET_NAME=$DOMAIN_NAME
 
 echo "Check gcloud credentials"
@@ -71,7 +79,7 @@ echo "Modify index.html"
 
 # Avoid conflict with the "update_cname_records" script
 echo "Delete local folder"
-rm -rf $DOMAIN_NAME
+mv $DOMAIN_NAME "${DOMAIN_NAME}-DONE"
 
 echo "Set up CNAME record"
 python update_cname_records.py $BUCKET_NAME
