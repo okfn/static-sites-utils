@@ -9,4 +9,4 @@ for zone in zones:
         zone['id'], params={"type": "CNAME"}
     )
     for record in records:
-        print(zone['name'], record['type'], record['content'])
+        print(zone['name'], record['name'], record['type'], record['content'])
