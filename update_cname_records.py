@@ -15,14 +15,14 @@ except ImportError:
 
 RECORD_CONTENT = "c.storage.googleapis.com"
 
-
-def update_cname_records(domains):
+def update_cname_records(domains, new_record_content, proxied):
 
     for domain in domains:
-        update_cname_record(domain)
+        print(f'Updating {domain} to {new_record_content}')
+        update_cname_record(domain, new_record_content, proxied)
 
 
-def update_cname_record(domain):
+def update_cname_record(domain, new_record_content, proxied):
 
     parts = tldextract.extract(domain)
 
@@ -47,9 +47,9 @@ def update_cname_record(domain):
     params = {
         "name": domain,
         "type": "CNAME",
-        "content": RECORD_CONTENT,
+        "content": new_record_content,
         "ttl": 1,
-        "proxied": True,
+        "proxied": proxied,
     }
 
     if not records:
@@ -59,7 +59,7 @@ def update_cname_record(domain):
         print(f"Created new CNAME record for {domain}")
     else:
 
-        if records[0]["content"] == RECORD_CONTENT:
+        if records[0]["content"] == new_record_content:
             print("Existing CNAME record already has the correct value")
             return
 
@@ -74,13 +74,23 @@ def update_cname_record(domain):
 if __name__ == "__main__":
 
     domains_input = sys.argv[1]
+    if len(sys.argv) > 2:
+        # usually k8s-production.openknowledge.io (not proxied)
+        new_record_content=sys.argv[2]
+    else:
+        # Default is moving to oki-archive
+        new_record_content=RECORD_CONTENT
 
+    proxied = True  # default
+    if len(sys.argv) > 3:
+        proxied=bool(int(sys.argv[3]))
+    
     if os.path.exists(domains_input):
         with open(domains_input, "r") as f:
             domains = [l.strip() for l in f.readlines()]
     else:
         domains = domains_input.split(",")
 
-    update_cname_records(domains)
+    update_cname_records(domains, new_record_content, proxied)
 
     print(f"Done, processed {len(domains)} domains")
